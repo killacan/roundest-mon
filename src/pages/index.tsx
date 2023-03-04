@@ -1,7 +1,13 @@
 import Head from 'next/head'
-import { Inter } from 'next/font/google'
+import { trpc } from '@/utils/trpc';
 
 export default function Home() {
+
+  const { data, isLoading } = trpc.hello.useQuery({text: 'client'});
+
+  if (isLoading) return <div>Loading...</div>;
+  if (data) return <div>{data.greeting}</div>;
+  
   return (
     <>
       <Head>

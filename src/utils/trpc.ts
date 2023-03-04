@@ -1,6 +1,7 @@
 import { httpBatchLink } from '@trpc/client';
 import { createTRPCNext } from '@trpc/next';
-import type { AppRouter } from '../backend/router/index';
+import type { AppRouter } from '../backend/router';
+
 function getBaseUrl() {
   if (typeof window !== 'undefined')
     // browser should use relative path
