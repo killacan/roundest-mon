@@ -22,9 +22,9 @@ export default function Home () {
     return null;
   }
 
-  const voteForRoundest = () => {
+  const voteForRoundest = (vote: number) => {
     // todo: fire mutation to persist changes
-
+    console.log(vote)
     updateIds(getOptionsForVote());
   }
 
