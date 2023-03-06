@@ -19,9 +19,9 @@ export const appRouter = router({
   // }),
   getPokemon: procedure.input(z.object({ id: z.number() }))
     .query(async ({input}) => {
-    const data = await api.getPokemonById(input.id);
-    // console.log("called", input.id, data)
-    return data;
+    const pokemon = await api.getPokemonById(input.id);
+    // console.log("called", input.id, pokemon)
+    return {name: pokemon.name, sprites: pokemon.sprites};
   }),
 });
 
