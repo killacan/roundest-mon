@@ -58,7 +58,9 @@ export default function Home () {
           </div>
 
         </div>
-
+        <div className='absolute bottom-0 w-full text-xl text-center pb-2'>
+          <a href='https://github.com/killacan/roundest-mon'>Github</a>
+        </div>
       </main>
     </>
   )
