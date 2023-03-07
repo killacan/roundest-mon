@@ -13,14 +13,19 @@ export default function Home () {
 
   const [first, second] = ids;
 
-  // console.log(first, second)
+  const voteMutation = trpc.castVote.useMutation();
 
   // const firstPokemon = trpc.useQuery("get-pokemon-by-id", { id: first });
   const firstPokemon = trpc.getPokemon.useQuery({ id: first });
   const secondPokemon = trpc.getPokemon.useQuery({ id: second });
 
   const voteForRoundest = (vote: number) => {
-    // todo: fire mutation to persist changes
+    if (vote === first) {
+      voteMutation.mutate({ votedFor: first, votedAgainst: second });
+    } else {
+      voteMutation.mutate({ votedFor: second, votedAgainst: first });
+    }
+    
     console.log(vote)
     updateIds(getOptionsForVote());
   }
