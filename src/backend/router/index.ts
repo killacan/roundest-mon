@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { procedure, router } from '../trpc';
 import * as trpc from '@trpc/server';
+import { prisma } from '@/backend/utils/prisma';
 
 import { PokemonClient } from 'pokenode-ts';
 
@@ -14,16 +15,34 @@ export const appRouter = router({
         greeting: `Hello ${input.text}`,
       };
     }),
-  // getAll: procedure.query(({ ctx }) => {
-  //   return ctx.prisma.example.findMany();
-  // }),
+  castVote: procedure
+    .input(z.object({ votedFor: z.number(), votedAgainst: z.number() }))
+    .mutation(async ({ input }) => {
+
+      const voteInDb = await prisma.vote.create({
+        data: {
+          ...input,
+        }
+      })
+      return {success: true, vote: voteInDb}
+    })
+  ,
   getPokemon: procedure.input(z.object({ id: z.number() }))
     .query(async ({input}) => {
     const pokemon = await api.getPokemonById(input.id);
     // console.log("called", input.id, pokemon)
     return {name: pokemon.name, sprites: pokemon.sprites};
   }),
+
 });
+
+
+export type AppRouter = typeof appRouter;
+
+
+
+
+
 
 // export const appRouter = router({
 //   getPokemonById: procedure
@@ -66,4 +85,3 @@ export const appRouter = router({
   //   }),
   // });
 // export type definition of API
-export type AppRouter = typeof appRouter;
