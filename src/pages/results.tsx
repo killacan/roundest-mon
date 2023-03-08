@@ -48,7 +48,7 @@ const PokemonListing: React.FC<{pokemon: PokemonQueryResult[number] }> = ({ poke
                 />
                 <div className="capitalize px-5" >{pokemon.name}</div>
             </div>
-            <div className="flex items-center justify-end" >
+            <div className="flex items-center justify-end p-5" >
                 {generateCountPercent(pokemon) + "%" }
             </div>
         </div>
