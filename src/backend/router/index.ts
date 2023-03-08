@@ -3,18 +3,7 @@ import { procedure, router } from '../trpc';
 import * as trpc from '@trpc/server';
 import { prisma } from '@/backend/utils/prisma';
 
-import { PokemonClient } from 'pokenode-ts';
-
-const api = new PokemonClient();
-
 export const appRouter = router({
-  hello: procedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
-    }),
   castVote: procedure
     .input(z.object({ votedFor: z.number(), votedAgainst: z.number() }))
     .mutation(async ({ input }) => {
@@ -29,9 +18,11 @@ export const appRouter = router({
     }),
   getPokemon: procedure.input(z.object({ id: z.number() }))
     .query(async ({input}) => {
-    const pokemon = await api.getPokemonById(input.id);
-    // console.log("called", input.id, pokemon)
-    return {name: pokemon.name, sprites: pokemon.sprites};
+
+    const pokemon = await prisma.pokemon.findFirst({ where: { id: input.id } });
+
+    if (!pokemon) throw new Error("lol does not exist")
+    return pokemon;
   }),
 
 });

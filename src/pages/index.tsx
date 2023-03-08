@@ -27,7 +27,6 @@ export default function Home () {
       voteMutation.mutate({ votedFor: second, votedAgainst: first });
     }
 
-    console.log(vote)
     updateIds(getOptionsForVote());
   }
 
@@ -45,13 +44,13 @@ export default function Home () {
           <div className='p-2' />
           <div className='border rounded p-8 flex justify-between items-center max-w-2xl' >
             {!firstPokemon.isLoading && <div className='w-64 flex flex-col items-center'>
-              <Image width={256} height={256} alt="" src={firstPokemon.data?.sprites.front_default!} className="w-full"/>
+              <Image width={256} height={256} alt="" src={firstPokemon.data?.spriteUrl!} className="w-full"/>
               <div className='text-xl text-center pb-4 capitalize mt-[-2rem]'>{firstPokemon.data?.name}</div>
               <button className={btn} onClick={() => voteForRoundest(first)}>Rounder</button>
             </div>}
             <div className='p-8'>VS</div>
             {!secondPokemon.isLoading && <div className='w-64 flex flex-col items-center'>
-              <Image width={256} height={256} alt="" src={secondPokemon.data?.sprites.front_default!} className="w-full"/>
+              <Image width={256} height={256} alt="" src={secondPokemon.data?.spriteUrl!} className="w-full"/>
               <div className='text-xl text-center pb-4 capitalize mt-[-2rem]'>{secondPokemon.data?.name}</div>
               <button className={btn} onClick={() => voteForRoundest(second)}>Rounder</button>
             </div>}
@@ -59,7 +58,7 @@ export default function Home () {
 
         </div>
         <div className='absolute bottom-0 w-full text-xl text-center pb-2'>
-          <a href='https://github.com/killacan/roundest-mon'>Github</a>
+          <a target={'_blank'} href='https://github.com/killacan/roundest-mon'>Github</a>
         </div>
       </main>
     </>
