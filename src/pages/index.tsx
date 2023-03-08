@@ -31,6 +31,12 @@ export default function Home () {
     updateIds(getOptionsForVote());
   }
 
+  const dataLoaded = 
+    !firstPokemon.isLoading &&
+    !secondPokemon.isLoading &&
+    firstPokemon.data &&
+    secondPokemon.data;
+
   return (
     <>
       <Head>
@@ -40,22 +46,26 @@ export default function Home () {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main >
-        <div className='h-screen w-screen flex flex-col justify-center align-middle items-center' >
-          <div className='text-2xl text-center' >Which Pokemon is Rounder?</div>
+        <div className='flex text-2xl justify-center items-end h-48' >Which Pokemon is Rounder?</div>
+        <div className='w-screen flex flex-col justify-top items-center' >
           <div className='p-2' />
-          <div className='border rounded p-8 flex justify-between items-center max-w-2xl' >
-            {!firstPokemon.isLoading && <div className='w-64 flex flex-col items-center'>
+          {dataLoaded && <div className='border rounded p-8 flex justify-between items-center max-w-2xl' >
+            <div className='w-64 flex flex-col items-center'>
               <Image width={256} height={256} alt="" src={firstPokemon.data?.spriteUrl!} className="w-full"/>
               <div className='text-xl text-center pb-4 capitalize mt-[-2rem]'>{firstPokemon.data?.name}</div>
               <button className={btn} onClick={() => voteForRoundest(first)}>Rounder</button>
-            </div>}
+            </div>
             <div className='p-8'>VS</div>
-            {!secondPokemon.isLoading && <div className='w-64 flex flex-col items-center'>
+            <div className='w-64 flex flex-col items-center'>
               <Image width={256} height={256} alt="" src={secondPokemon.data?.spriteUrl!} className="w-full"/>
               <div className='text-xl text-center pb-4 capitalize mt-[-2rem]'>{secondPokemon.data?.name}</div>
               <button className={btn} onClick={() => voteForRoundest(second)}>Rounder</button>
-            </div>}
-          </div>
+            </div>
+          </div>}
+          {!dataLoaded && 
+          <div className='py-14'>
+            <img src='/rings.svg' className='w-48' />
+          </div>}
 
         </div>
         <div className='absolute bottom-0 w-full text-xl text-center pb-2'>
