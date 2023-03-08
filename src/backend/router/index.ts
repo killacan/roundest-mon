@@ -21,12 +21,12 @@ export const appRouter = router({
 
       const voteInDb = await prisma.vote.create({
         data: {
-          ...input,
+          votedAgainstId: input.votedAgainst,
+          votedForId: input.votedFor,
         }
       })
       return {success: true, vote: voteInDb}
-    })
-  ,
+    }),
   getPokemon: procedure.input(z.object({ id: z.number() }))
     .query(async ({input}) => {
     const pokemon = await api.getPokemonById(input.id);
