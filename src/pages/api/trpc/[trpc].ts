@@ -1,5 +1,4 @@
 import * as trpcNext from '@trpc/server/adapters/next';
-// import { appRouter } from '../../../backend/router/_app';
 import { appRouter, AppRouter } from '../../../backend/router/index'
 import { inferProcedureOutput } from '@trpc/server';
 

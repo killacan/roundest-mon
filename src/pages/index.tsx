@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { trpc } from '@/utils/trpc';
 import { getOptionsForVote } from '@/utils/getRandomPokemon';
 import { useState } from 'react';
-import { inferQueryResponse } from './api/trpc/[trpc]';
 import Image from 'next/image'
 import Link from 'next/link';
 

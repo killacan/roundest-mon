@@ -4,6 +4,7 @@ import { inferAsyncReturnType } from "@trpc/server";
 import { AsyncReturnType } from "@/utils/ts-bs";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const getPokemonInOrder = async () => {
     const pokemonOrdered = await prisma.pokemon.findMany({
@@ -59,7 +60,10 @@ const PokemonListing: React.FC<{pokemon: PokemonQueryResult[number] }> = ({ poke
 const ResultsPage: React.FC<{pokemon: AsyncReturnType<typeof getPokemonInOrder>}> = (props) => {
     return (
         <div className="flex flex-col items-center">
-            <h2 className="text-2xl ">Results</h2>
+            <div className="grid grid-cols-3 w-full max-w-2xl">
+                <Link className="underline my-auto px-4 w-4" href="/" >Back</Link>
+                <h2 className="text-2xl text-center ">Results</h2>
+            </div>
             <div className="flex flex-col w-full max-w-2xl border">
                 {props.pokemon.map((pokemon, index) => {
                     return <PokemonListing pokemon={pokemon} key={index} />
